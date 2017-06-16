@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ip = getIpAddress();
+    }
+
+    private String getIpAddress(){
+        String ipStored = Store.getIpAddress(this);
+
+        return ipStored != "" ? ipStored : ip;
     }
 
     public void qrScanner(View view){
@@ -40,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         setContentView(R.layout.activity_main);
 
         ip = rawResult.getText();
+        Store.saveIpAddress(ip, this);
+
         Toast.makeText(this, ip,Toast.LENGTH_LONG).show();
     }
 
